@@ -11,19 +11,21 @@ namespace SimpleHTTP
 {
     class Program
     {
+        public static int connectionsCounter = 0;
         static void Main(string[] args)
         {
             HTTPServer server = new HTTPServer(IPAddress.Loopback, 18080);
             server.ClientConnected += new EventHandler<ClientConnectionEventArgs>(server_ClientConnected);
             server.Start();
+            Console.ReadLine();
         }
 
         static void server_ClientConnected(object sender, ClientConnectionEventArgs e)
         {
-            Console.WriteLine("Client connected, request: {0}", e.Request.ReadLine());
+            Console.WriteLine("Client {0} connected", ++connectionsCounter);
             e.Response.WriteLine("HTTP/1.1 200 OK");
             e.Response.WriteLine();
-            e.Response.WriteLine("This is my response. The game.");
+            e.Response.WriteLine("This is my response. The game. {0}", DateTime.Now);
         }
     }
     

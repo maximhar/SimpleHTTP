@@ -9,8 +9,8 @@ namespace SimpleHTTP
     class ClientConnectionEventArgs:EventArgs
     {
         public StreamWriter Response { get; set; }
-        public StreamReader Request { get; set; }
-        public ClientConnectionEventArgs(StreamReader request, StreamWriter response)
+        public string Request { get; set; }
+        public ClientConnectionEventArgs(string request, StreamWriter response)
         {
             Request = request;
             Response = response;
