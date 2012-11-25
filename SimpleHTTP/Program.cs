@@ -24,8 +24,8 @@ namespace SimpleHTTP
         {
             Console.WriteLine("Client {0} connected", ++connectionsCounter);
             e.Response.WriteLine("HTTP/1.1 200 OK");
-            e.Response.WriteLine();
-            e.Response.WriteLine("This is my response. The game. {0}", DateTime.Now);
+            e.Response.WriteLine(); // need to catch the exception
+            e.Response.WriteLine("<p>This is my response. The game. {0}</p>", DateTime.Now);
         }
     }
     
