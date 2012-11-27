@@ -44,9 +44,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientConnectionEventArgs.cs" />
+    <Compile Include="HttpInfo.cs" />
     <Compile Include="HTTPServer.cs" />
+    <Compile Include="HttpServerException.cs" />
+    <Compile Include="MethodType.cs" />
+    <Compile Include="PostData.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

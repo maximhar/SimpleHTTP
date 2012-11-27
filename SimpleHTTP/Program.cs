@@ -15,18 +15,33 @@ namespace SimpleHTTP
         static void Main(string[] args)
         {
             HTTPServer server = new HTTPServer(IPAddress.Loopback, 18080);
-            server.ClientConnected += new EventHandler<ClientConnectionEventArgs>(server_ClientConnected);
+            server.OnGet += new EventHandler<ClientConnectionEventArgs>(server_OnGet);
+            server.OnPost += new EventHandler<ClientConnectionEventArgs>(server_OnPost);
             server.Start();
             Console.ReadLine();
         }
 
-        static void server_ClientConnected(object sender, ClientConnectionEventArgs e)
+        static void server_OnPost(object sender, ClientConnectionEventArgs e)
         {
-            Console.WriteLine("Client {0} connected", ++connectionsCounter);
+            Console.WriteLine("POST request", ++connectionsCounter);
             e.Response.WriteLine("HTTP/1.1 200 OK");
-            e.Response.WriteLine(); // need to catch the exception
-            e.Response.WriteLine("<p>This is my response. The game. {0}</p>", DateTime.Now);
+            e.Response.WriteLine();
+            foreach (var header in e.HeaderData.Headers)
+            {
+                e.Response.WriteLine("{0}:{1}", header.Key, header.Value);
+            }
+            e.Response.WriteLine("Post data: ");
+            e.Response.Write(new string(e.PostData));
         }
+
+        static void server_OnGet(object sender, ClientConnectionEventArgs e)
+        {
+            Console.WriteLine("GET request", ++connectionsCounter);
+            e.Response.WriteLine("HTTP/1.1 200 OK");
+            e.Response.WriteLine();
+            e.Response.Write(File.ReadAllText("index.html"));
+        }
+        
     }
     
 
